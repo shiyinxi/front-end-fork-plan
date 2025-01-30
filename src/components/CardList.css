@@ -1,6 +1,0 @@
-.card-items__container {
-    grid-gap: 2rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    margin: 2rem;
-  }
