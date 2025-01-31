@@ -1,7 +1,7 @@
 .navbar {
     background-color: var(--primary-pink);
     box-shadow: 0 1px 1px -1px #00000038;
-    font-family: "Merienda", cursive;
+    font-family: "Poppins", sans-serif;
     position: fixed;
     top: 0;
     left: 0;
@@ -19,19 +19,20 @@
         font-size: 3rem;
         font-weight: 900;
         padding: 1rem;
-        color: #333;
+        color: #134017;
+        font-family: Lobster, sans-serif;
       }
   
       ul {
         max-width: 97vw;
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 5rem;
         overflow: hidden;
       }
   
       li {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: 400;
   
         a {

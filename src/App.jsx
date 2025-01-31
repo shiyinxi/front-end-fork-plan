@@ -22,9 +22,9 @@ function App() {
         </Routes>
       </BrowserRouter>
 
-      <Element name="favorites">
+      {/* <Element name="favorites">
         <Favorite />
-      </Element>
+      </Element> */}
       
       <Category />
       <Contactus />
