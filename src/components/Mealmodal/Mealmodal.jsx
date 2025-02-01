@@ -56,7 +56,7 @@ const Mealmodal = forwardRef((props, ref) => {
             ))}
           </ol>
         </div>
-        {/* <Addtofavorite recipe={recipe} /> */}
+        <Addtofavorite recipe={recipe} /> 
         </div>
       </div>
   );

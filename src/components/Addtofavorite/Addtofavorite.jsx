@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Addtofavorite.css";
+import PropTypes from "prop-types";
 
 const Addtofavorite = ({ recipe }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -7,7 +8,14 @@ const Addtofavorite = ({ recipe }) => {
   const getLocalData = () => {
     const favorites = JSON.parse(localStorage.getItem("favorite")) || [];
 
-    const item = favorites.find((item) => item.idMeal === recipe.idMeal);
+    if (!favorites) {
+      return {
+        item: null,
+        favorites,
+      };
+    }
+
+    const item = favorites.find((item) => item && item.idMeal === recipe.idMeal);
 
     return {
       item,
@@ -57,6 +65,22 @@ const Addtofavorite = ({ recipe }) => {
       </button>
     </>
   );
+};
+
+Addtofavorite.propTypes = {
+  recipe: PropTypes.shape({
+    idMeal: PropTypes.string.isRequired,
+    strMeal: PropTypes.string.isRequired,
+    strMealThumb: PropTypes.string,
+    strInstructions: PropTypes.string,
+    strIngredient1: PropTypes.string,
+    strIngredient2: PropTypes.string,
+    strIngredient3: PropTypes.string,
+    strIngredient4: PropTypes.string,
+    strIngredient5: PropTypes.string,
+    
+
+  }).isRequired,
 };
 
 export default Addtofavorite;
