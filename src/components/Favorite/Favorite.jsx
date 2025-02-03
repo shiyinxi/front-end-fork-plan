@@ -6,6 +6,7 @@ function Favorite() {
 
   const loadData = () => {
     const favoriteMeal = JSON.parse(localStorage.getItem("favorite")) || [];
+    console.log(localStorage.getItem("favorite"));
     setIsFavoriteMeals(favoriteMeal);
   };
 

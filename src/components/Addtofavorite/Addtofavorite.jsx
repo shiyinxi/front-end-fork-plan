@@ -5,18 +5,37 @@ import PropTypes from "prop-types";
 const Addtofavorite = ({ recipe }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const getLocalData = () => {
-    const favorites = JSON.parse(localStorage.getItem("favorite")) || [];
+  // const getLocalData = () => {
+    
+  //   const favorites = JSON.parse(localStorage.getItem("favorite")) || [];
 
-    if (!favorites) {
+  //   if (!favorites) {
+  //     return {
+  //       item: null,
+  //       favorites,
+  //     };
+  //   }
+
+  //   const item = favorites.find((item) => item && item.idMeal === recipe.idMeal);
+
+  //   return {
+  //     item,
+  //     favorites,
+  //   };
+  // };
+  const getLocalData = () => {
+    const favoritesData = localStorage.getItem("favorite");
+  
+    if (favoritesData === null) {
       return {
         item: null,
-        favorites,
+        favorites: [],
       };
     }
-
+  
+    const favorites = JSON.parse(favoritesData) || [];
     const item = favorites.find((item) => item && item.idMeal === recipe.idMeal);
-
+  
     return {
       item,
       favorites,
@@ -39,7 +58,6 @@ const Addtofavorite = ({ recipe }) => {
 
   const handleFavorite = () => {
     const { item, favorites } = getLocalData();
-    console.log(favorites);
 
     if (item) {
       removeFavorite(favorites);
@@ -47,6 +65,12 @@ const Addtofavorite = ({ recipe }) => {
       addFavorite(favorites);
     }
   };
+
+  const clearFavorites = () => {
+    localStorage.removeItem("favorite");
+    setIsFavorite(false);
+  };
+
 
   useEffect(() => {
     const { item } = getLocalData();
@@ -62,6 +86,9 @@ const Addtofavorite = ({ recipe }) => {
     <>
       <button onClick={handleFavorite} className="favoritebtn">
         {isFavorite ? "remove from favorites" : "add to favorites"}
+      </button>
+      <button onClick={clearFavorites} className="clearbtn">
+        Clear Favorites
       </button>
     </>
   );
