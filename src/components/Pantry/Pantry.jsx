@@ -11,7 +11,7 @@ const Pantry = () => {
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
-        const response = await axios.get(`${kbaseURL}/inventory`); 
+        const response = await axios.get(`${kbaseURL}/inventory/`); 
         console.log('response', response);
         setIngredients(response.data);
       } catch (error) {
@@ -23,23 +23,31 @@ const Pantry = () => {
   }, []);
 
   return (
-    <div className="section" id="pantry">
-      <h4>Pantry</h4>
-      <div className="ingredients-area">
-        {ingredients.map((ingredient) => (
-          <div key={ingredient.id} className="ingredient-item">
-            <figure className="ingredient-figure">
-              <img
-                className="ingredient-figure-img"
-                src={ingredient.image} // Adjust according to your data structure
-                alt={ingredient.name}
+
+      <div className="inventory">
+        <header className="inventory-header">
+          <h1>Pantry</h1>
+          <span>Fresh — Febuary 2025</span>
+        </header>
+        <div className="ingredient-list">
+          {ingredients.map((ingredient, index) => (
+            <div key={index} className="ingredient-card">
+              <img 
+                src={`https://img.spoonacular.com/ingredients_250x250/${ingredient.ingredient.image}`}
+                alt={ingredient.ingredient.name} 
+                className="ingredient-image" 
               />
-              <figcaption>{ingredient.name}</figcaption>
-            </figure>
-          </div>
-        ))}
+              <div className="ingredient-info">
+                <h2>{ingredient.ingredient.name}</h2>
+                <p className="ingredient-quantity">{ingredient.quantity}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+
+
+
   );
 };
 

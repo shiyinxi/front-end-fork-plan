@@ -87,9 +87,9 @@ const Addtofavorite = ({ recipe }) => {
       <button onClick={handleFavorite} className="favoritebtn">
         {isFavorite ? "remove from favorites" : "add to favorites"}
       </button>
-      <button onClick={clearFavorites} className="clearbtn">
+      {/* <button onClick={clearFavorites} className="clearbtn">
         Clear Favorites
-      </button>
+      </button> */}
     </>
   );
 };

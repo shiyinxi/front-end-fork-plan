@@ -7,16 +7,16 @@
     padding: 2rem;
   
     .contacth {
-      font-family: "Playfair Display", serif;
+      font-family: "Arial", sans-serif;
       text-align: center;
-      font-size: 4rem;
+      font-size: 2rem;
       font-weight: 700;
     }
   
     p {
-      font-family: "Playfair Display", serif;
+      font-family: "Arial", sans-serif;
       text-align: center;
-      font-size: 2rem;
+      font-size: 1rem;
       font-weight: 400;
     }
   

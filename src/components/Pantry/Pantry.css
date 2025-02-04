@@ -1,89 +1,53 @@
-:root {
-    --primary-pink: #fff3f0;
-    --primary-white: #f2f2f2;
-    --primary-orange: #fe5722;
-    --primary-blue: #272d36;
-  
-    --app-mx-width: min(100vw, 3000px);
-  }
-  .favorites {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #f2f2f2;
-    color: var(--primary-blue);
-  
-    .meal-area {
-      display: flex;
-      justify-content: space-around;
-      gap: 2rem;
-      max-width: 90vw;
-      overflow-x: auto;
-      margin: 0 auto;
-  
-      figure {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        width: min(100%, 270px);
-        gap: 5px;
-        margin: 0 auto;
-        transition: all 0.4s ease-in-out;
-  
-        img {
-          object-fit: cover;
-          border-radius: 50%;
-          width: 20vw;
-        }
-  
-        figcaption {
-          font-family: Inter, sans-serif;
-          font-size: 1rem;
-          text-wrap: nowrap;
-          font-weight: 400;
-        }
-  
-        &:hover {
-          transform: scale(0.95);
-          color: #ff642f;
-        }
-      }
-    }
-  
-    @media only screen and (max-width: 768px) {
-      .favorites {
-        .meal-area {
-          figure {
-            figcaption {
-              font-size: 3px;
-            }
-          }
-        }
-      }
-    }
-  }
-  
-  .pop-meal-area {
-    display: flex;
-    background-color: #f2f2f2;
-  
-    .meal-area-figure {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: min(100%, 270px);
-      gap: 5px;
-      margin: 0 auto;
-      transition: all 0.4s ease-in-out;
-    }
-  
-    .meal-area-figure-img {
-      width: 20vw;
-      border-radius: 5px;
-    }
-  
-    .rating i {
-      color: #ffd700;
-    }
-  }
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+.inventory {
+  padding: 20px;
+}
+
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.inventory-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.ingredient-list {
+  display: flex;
+  gap: 20px;
+}
+
+.ingredient-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 300px;
+}
+
+.ingredient-image {
+  width: 100%;
+  height: auto;
+}
+
+.ingredient-info {
+  padding: 10px;
+}
+
+.ingredient-quantity {
+  color: #6b8e23;
+  font-weight: bold;
+}
+
+.product-location {
+  color: #888;
+}

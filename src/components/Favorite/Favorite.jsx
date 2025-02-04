@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Favorite.css";
+import Mealmodal from "../Mealmodal/Mealmodal";
+
 function Favorite() {
   const [favoriteMeals, setIsFavoriteMeals] = useState([]);
   const [selectedRecipeDetail, setSelectedRecipeDetail] = useState(null);
@@ -38,13 +40,14 @@ function Favorite() {
       </div>
 
       {selectedRecipeDetail && (
-        <div className="modal">
-          <div className="modal-content">
-            <button onClick={handleCloseDetailModal} className="close">×</button>
-            <h3>{selectedRecipeDetail.strMeal}</h3>
-            <p>Instructions: {selectedRecipeDetail.strInstructions}</p>
-          </div>
-        </div>
+        // <div className="modal">
+        //   <div className="modal-content">
+        //     <button onClick={handleCloseDetailModal} className="close">×</button>
+        //     <h3>{selectedRecipeDetail.strMeal}</h3>
+        //     <p>Instructions: {selectedRecipeDetail.strInstructions}</p>
+        //   </div>
+        // </div>
+        <Mealmodal recipe={selectedRecipeDetail} handleCloseDetailModal={handleCloseDetailModal} />
       )}
     </div>
   );

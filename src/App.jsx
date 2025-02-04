@@ -9,6 +9,7 @@ import Contactus from "./Components/Contactus/Contactus";
 import Footer from "./Components/Footer/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Element } from "react-scroll";
+import Shoppinglist from "./components/Shoppinglist/Shoppinglist";
 // import Mealmodal from "./Components/Mealmodal/Mealmodal";
 
 function App() {
@@ -25,7 +26,14 @@ function App() {
         <Favorite />
       </Element>
       
-      <Pantry />
+      <Element name="pantry">
+        <Pantry />
+      </Element>
+
+      <Element name="Shoppinglist">
+        <Shoppinglist />
+      </Element>
+      
       <Contactus />
       <Footer />
     </>
