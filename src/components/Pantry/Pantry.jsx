@@ -2,6 +2,7 @@ import "./Pantry.css"
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+
 const kbaseURL = 'http://localhost:8000/';
 
 const Pantry = () => {

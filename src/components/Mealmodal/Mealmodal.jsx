@@ -46,7 +46,6 @@ const Mealmodal = forwardRef((props, ref) => {
                 ))}
               </ul>
             </div>
-          {/* <div className="measurements"></div> */}
           </div>
           
         <div className="mealInstructions">

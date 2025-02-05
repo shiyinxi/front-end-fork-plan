@@ -71,13 +71,34 @@ body {
     margin-bottom: 10px;
   }
   
-  .payment-button {
+  .bought-btn {
     background-color: #6b8e23;
     color: white;
     border: none;
-    padding: 10px;
-    border-radius: 5px;
+    border-radius: 4px;
+    padding: 10px 20px;
     cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
   }
+
+  .remove-btn {
+    background-color: #6b8e23;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+
+  .quantity-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #6b8e23;
+    margin: 0 5px;
+  }
+  
+  .quantity {
+    margin: 10px 10px;
+  }
+  

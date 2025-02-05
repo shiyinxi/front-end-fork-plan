@@ -2,7 +2,7 @@ import { Link } from "react-scroll";
 import "./Navbar.css";
 
 
-function Navbar() {
+function Navbar({ onOpenPantryModal, onOpenShoppingListModal , onShowMealPlan }) {
   return (
     <nav className="navbar">
       <div className="nav-content">
@@ -10,13 +10,13 @@ function Navbar() {
       
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/" onClick={onShowMealPlan}>Plan</Link>
           </li>
           <li>
-            <Link to="/about">Pantry </Link>
+            <Link to="/" onClick={onOpenPantryModal}>Pantry</Link>
           </li>
           <li>
-            <Link to="/contact">List</Link>
+            <Link to="/" onClick={onOpenShoppingListModal}>Shopping List</Link>
           </li>
           <li>
             <Link to="favorites" smooth={true} duration={500}>

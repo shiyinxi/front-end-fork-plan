@@ -2,7 +2,7 @@ import './Shoppinglist.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const kbaseURL = 'http://localhost:8000/';
+const kbaseURL = 'http://localhost:8000';
 
 const Shoppinglist = () => {
     const [shoppinglistItems, setShoppinglistItems] = useState([]);
@@ -21,11 +21,44 @@ const Shoppinglist = () => {
         fetchInventory();
       }, []);
 
+    const handleBought = (itemId) => {
+      console.log('itemId', itemId);
+      return axios.put(`${kbaseURL}/shoppinglist/inventory/${itemId}/`)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          console.error('Error handle bought', error);
+    });
+    };
+  
+    const handleRemove = (itemId) => {
+      return axios.delete(`${kbaseURL}/shoppinglist/delete/${itemId}/`)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          console.error('Error handle remove', error);
+    });
+    };
+
+    const handleIncrement = (itemId) => {
+      setShoppinglistItems(shoppinglistItems.map(item => 
+        item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
+      ));
+    };
+  
+    const handleDecrement = (itemId) => {
+      setShoppinglistItems(shoppinglistItems.map(item => 
+        item.id === itemId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+      ));
+    };
+
     return (
         <div className="shoppinglist">
             <header className="shoppinglist-header">
                 <h1>Shopping List</h1>
-                <span>3 items</span>
+                <span>{shoppinglistItems.length} items</span>
             </header>
         <div className="shoppinglist-content">
             <div className="shoppinglist-items">
@@ -37,22 +70,25 @@ const Shoppinglist = () => {
                 className="shoppinglist-item-image" />
               <div className="shoppinglist-item-info">
                 <h2>{item.ingredient.name}</h2>
-                <p className="shoppinglist-item-price">{item.price} / {item.weight}</p>
+                <div className="quantity-controls">
+                  <button onClick={() => handleDecrement(item.id)} className="quantity-btn"> - </button>
+                  <span className="quantity">{item.quantity}</span>
+                  <button onClick={() => handleIncrement(item.id)} className="quantity-btn"> + </button>
+                </div>
               </div>
-              <div className="shoppinglist-item-total">
-                <p>{item.price}</p>
-              </div>
+            
+             <div className="shoppinglist-item-actions">
+                <button onClick={() => handleBought(item.id)} className="bought-btn">
+                  Bought
+                </button>
+                <button onClick={() => handleRemove(item.id)} className="remove-btn">
+                  Remove
+                </button>
+              </div> 
             </div>
           ))}
         </div>
-        <div className="order-summary">
-          <h2>Order summary</h2>
-          <p>Subtotal: $27.74</p>
-          <p>Shipping: $2.99</p>
-          <p>Tax: $2.00</p>
-          <p>Total: $32.73</p>
-          <button className="payment-button">Continue to payment</button>
-        </div>
+        
       </div>
     </div>
   );
