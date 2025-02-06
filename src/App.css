@@ -44,7 +44,7 @@ input {
 }
 
 h4 {
-  font-family: "Poppins", sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 2rem;
   font-weight: 700;
   padding: 1rem 0;
@@ -64,4 +64,8 @@ body {
   color: #272d36;
   font-family: Arial, sans-serif;
   height: fit-content;
+}
+
+.content {
+  padding-top: 80px; /* Adjust this value based on the height of your navbar */
 }

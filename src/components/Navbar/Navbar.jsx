@@ -1,8 +1,18 @@
-import { Link } from "react-scroll";
+// import { Link } from "react-scroll";
+// import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import React from "react";
 
 
-function Navbar({ onOpenPantryModal, onOpenShoppingListModal , onShowMealPlan }) {
+function Navbar({ onOpenPantryModal, onOpenShoppingListModal }) {
+
+  const navigate = useNavigate();
+
+  const handleAddRecipeClick = () => {
+    navigate("/");
+  };
+  
   return (
     <nav className="navbar">
       <div className="nav-content">
@@ -10,7 +20,7 @@ function Navbar({ onOpenPantryModal, onOpenShoppingListModal , onShowMealPlan })
       
         <ul>
           <li>
-            <Link to="/" onClick={onShowMealPlan}>Plan</Link>
+            <Link to="/mealplan">Plan</Link>
           </li>
           <li>
             <Link to="/" onClick={onOpenPantryModal}>Pantry</Link>
@@ -24,7 +34,7 @@ function Navbar({ onOpenPantryModal, onOpenShoppingListModal , onShowMealPlan })
             </Link>
           </li>
         </ul>
-        <button className="add-recipe">Add Recipe</button>
+        <button className="add-recipe" onClick={handleAddRecipeClick}>Add Recipe</button>
       </div>
     </nav>
   );
