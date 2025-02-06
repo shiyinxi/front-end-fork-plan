@@ -58,10 +58,11 @@ const MealPlan = () => {
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="favorites-list">
           <h2>Favorite Recipes</h2>
-          <Droppable droppableId="favorite">
+           {favoriteRecipes.map((recipe, index) => (
+            <Droppable droppableId={recipe.idMeal.toString()} key={recipe.idMeal}>
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
-                {favoriteRecipes.map((recipe, index) => (
+               
                   <Draggable key={recipe.idMeal} draggableId={recipe.idMeal.toString()} index={index}>
                     {(provided) => (
                       <div
@@ -75,13 +76,13 @@ const MealPlan = () => {
                       </div>
                     )}
                   </Draggable>
-                ))}
                 {provided.placeholder}
               </div>
             )}
           </Droppable>
+        ))}
         </div>
-
+        
         <div className="calendar">
           <h2>Meal Plan Calendar</h2>
          

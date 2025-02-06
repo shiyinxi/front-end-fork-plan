@@ -41,7 +41,7 @@ const Mealmodal = forwardRef((props, ref) => {
               <ul>
                 {ingredients.map((ingredient, index) => (
                   <li key={index}>
-                    {ingredient} ({measure[index]})
+                    {ingredient} - {measure[index]}
                   </li>
                 ))}
               </ul>

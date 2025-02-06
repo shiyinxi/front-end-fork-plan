@@ -1,27 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./Favorite.css";
 import Mealmodal from "../Mealmodal/Mealmodal";
 
 function Favorite() {
   const [favoriteMeals, setIsFavoriteMeals] = useState([]);
   const [selectedRecipeDetail, setSelectedRecipeDetail] = useState(null);
+  const modalRef = useRef(null);
 
   const loadData = () => {
-    const favoriteMeal = JSON.parse(localStorage.getItem("favorite")) || [];
-    console.log(localStorage.getItem("favorite"));
-    setIsFavoriteMeals(favoriteMeal);
-  };
+   const favoriteMeal = JSON.parse(localStorage.getItem("favorite")) || [];
+   console.log(localStorage.getItem("favorite"));
+  setIsFavoriteMeals(favoriteMeal);
+};
 
   useEffect(() => {
-    loadData();
-  }, []);
+   loadData();
+ }, []);
 
   const handleVeiwMealDetail = (recipe) => {
-    setSelectedRecipeDetail(recipe);
+   setSelectedRecipeDetail(recipe);
+    if (modalRef.current) {
+      modalRef.current.style.display = "block";
+    }
   };
 
   const handleCloseDetailModal = () => {
     setSelectedRecipeDetail(null);
+    if (modalRef.current) {
+      modalRef.current.style.display = "none";
+    }
   };
 
   return (
@@ -30,7 +37,7 @@ function Favorite() {
       <div className="mealArea">
         {favoriteMeals.map((recipe) => (
           <div key={recipe.idMeal} className="favorite">
-            <h4>{recipe.strMeal}</h4>
+            <div className="mealtitle"><h4>{recipe.strMeal}</h4></div>
             <img src={recipe.strMealThumb} alt={recipe.strMealThumb} />
             <button onClick={() => handleVeiwMealDetail(recipe)} className="viewdetalsbtn">
               View Details
@@ -40,14 +47,11 @@ function Favorite() {
       </div>
 
       {selectedRecipeDetail && (
-        // <div className="modal">
-        //   <div className="modal-content">
-        //     <button onClick={handleCloseDetailModal} className="close">×</button>
-        //     <h3>{selectedRecipeDetail.strMeal}</h3>
-        //     <p>Instructions: {selectedRecipeDetail.strInstructions}</p>
-        //   </div>
-        // </div>
-        <Mealmodal recipe={selectedRecipeDetail} handleCloseDetailModal={handleCloseDetailModal} />
+        <Mealmodal 
+          ref={modalRef} 
+          recipe={selectedRecipeDetail} 
+          handleCloseDetailModal={handleCloseDetailModal} 
+        />
       )}
     </div>
   );
