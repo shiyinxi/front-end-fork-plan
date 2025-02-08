@@ -65,7 +65,8 @@ const Shoppinglist = () => {
             {shoppinglistItems.map((item, index) => (
             <div key={index} className="shoppinglist-item">
               <img 
-                src={`https://img.spoonacular.com/ingredients_250x250/${item.ingredient.image}`}
+                // src={`https://img.spoonacular.com/ingredients_250x250/${item.ingredient.image}`}
+                src={item.ingredient.image}
                 alt={item.ingredient} 
                 className="shoppinglist-item-image" />
               <div className="shoppinglist-item-info">

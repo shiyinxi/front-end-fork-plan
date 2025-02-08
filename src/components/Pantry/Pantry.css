@@ -1,5 +1,6 @@
 body {
   font-family: 'Arial', sans-serif;
+
   margin: 0;
   padding: 0;
   background-color: #f9f9f9;
@@ -22,7 +23,8 @@ body {
 }
 
 .ingredient-list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
@@ -31,16 +33,26 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 300px;
+  width: 100%; 
+  max-width: 200px; 
+  margin: 0 auto;
+  height: 150px;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .ingredient-image {
   width: 100%;
-  height: auto;
+  height: 80px;
 }
 
 .ingredient-info {
   padding: 10px;
+}
+
+.ingredient-info h2 {
+  font-size: 0.9em; /* Adjust the font size to make it smaller */
+  margin: 5px 0;
 }
 
 .ingredient-quantity {

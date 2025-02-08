@@ -2,11 +2,15 @@ import { forwardRef } from "react";
 import PropTypes from "prop-types";
 import "./Mealmodal.css";
 import Addtofavorite from "../Addtofavorite/Addtofavorite";
+import axios from 'axios';
 
+const kbaseURL = 'http://localhost:8000/';
 
 const Mealmodal = forwardRef((props, ref) => { 
 
   const { recipe, handleCloseModal } = props;
+  console.log('recipe', recipe);
+
   if (!recipe) return null;
   const ingredients = [];
   const measure = [];
@@ -19,6 +23,41 @@ const Mealmodal = forwardRef((props, ref) => {
     }
   }
   const instructions = recipe.strInstructions.split("\n");
+  
+  const handleAddToShoppingList = async () => {
+    try {
+   
+      const ingredientsData = [];
+      for (let i = 1; i <= 20; i++) {
+        const ingredientKey = `strIngredient${i}`;
+        const measureKey = `strMeasure${i}`;
+        if (recipe[ingredientKey]) {
+          ingredientsData.push({
+            ingredient: recipe[ingredientKey],
+            amount: recipe[measureKey] || '',
+          });
+        }
+      }
+      console.log('ingredientsData', ingredientsData);
+      const response = await axios.post(`${kbaseURL}/recipes/shoppinglist/${recipe.idMeal}`, {
+        ingredients: ingredientsData,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('response', response);
+
+      if (response.status === 200) {
+        alert('Ingredients added to shopping list');
+      } else {
+        alert('Failed to add ingredients to shopping list');
+      }
+    } catch (error) {
+      console.error('Error adding ingredients to shopping list:', error);
+      alert('An error occurred while adding ingredients to shopping list');
+    }
+  };
 
   return (
       <div id="mealModal" className="modal" ref={ref}>
@@ -45,6 +84,9 @@ const Mealmodal = forwardRef((props, ref) => {
                   </li>
                 ))}
               </ul>
+              <button onClick={handleAddToShoppingList} className="add-to-shopping-list-btn">
+              Add to Shopping List
+            </button>
             </div>
           </div>
           

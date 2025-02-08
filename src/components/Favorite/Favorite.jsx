@@ -4,7 +4,7 @@ import Mealmodal from "../Mealmodal/Mealmodal";
 
 function Favorite() {
   const [favoriteMeals, setIsFavoriteMeals] = useState([]);
-  const [selectedRecipeDetail, setSelectedRecipeDetail] = useState(null);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
   const modalRef = useRef(null);
 
   const loadData = () => {
@@ -18,14 +18,14 @@ function Favorite() {
  }, []);
 
   const handleVeiwMealDetail = (recipe) => {
-   setSelectedRecipeDetail(recipe);
+   setSelectedRecipe(recipe);
     if (modalRef.current) {
       modalRef.current.style.display = "block";
     }
   };
 
-  const handleCloseDetailModal = () => {
-    setSelectedRecipeDetail(null);
+  const handleCloseModal = () => {
+    setSelectedRecipe(null);
     if (modalRef.current) {
       modalRef.current.style.display = "none";
     }
@@ -46,11 +46,11 @@ function Favorite() {
         ))}
       </div>
 
-      {selectedRecipeDetail && (
+      {selectedRecipe && (
         <Mealmodal 
           ref={modalRef} 
-          recipe={selectedRecipeDetail} 
-          handleCloseDetailModal={handleCloseDetailModal} 
+          recipe={selectedRecipe} 
+          handleCloseModal={handleCloseModal} 
         />
       )}
     </div>

@@ -5,24 +5,6 @@ import PropTypes from "prop-types";
 const Addtofavorite = ({ recipe }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  // const getLocalData = () => {
-    
-  //   const favorites = JSON.parse(localStorage.getItem("favorite")) || [];
-
-  //   if (!favorites) {
-  //     return {
-  //       item: null,
-  //       favorites,
-  //     };
-  //   }
-
-  //   const item = favorites.find((item) => item && item.idMeal === recipe.idMeal);
-
-  //   return {
-  //     item,
-  //     favorites,
-  //   };
-  // };
   const getLocalData = () => {
     const favoritesData = localStorage.getItem("favorite");
   
@@ -66,11 +48,6 @@ const Addtofavorite = ({ recipe }) => {
     }
   };
 
-  const clearFavorites = () => {
-    localStorage.removeItem("favorite");
-    setIsFavorite(false);
-  };
-
 
   useEffect(() => {
     const { item } = getLocalData();
@@ -87,9 +64,6 @@ const Addtofavorite = ({ recipe }) => {
       <button onClick={handleFavorite} className="favoritebtn">
         {isFavorite ? "remove from favorites" : "add to favorites"}
       </button>
-      {/* <button onClick={clearFavorites} className="clearbtn">
-        Clear Favorites
-      </button> */}
     </>
   );
 };

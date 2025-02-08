@@ -1,34 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import './MealPlan.css'; 
 
 const localizer = momentLocalizer(moment);
+const DnDCalendar = withDragAndDrop(Calendar);
 
 const MealPlan = () => {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [events, setEvents] = useState([]);
+  const [draggedRecipe, setDraggedRecipe] = useState(null);
 
   useEffect(() => {
     const favoriteRecipesData = JSON.parse(localStorage.getItem('favorite')) || [];
     setFavoriteRecipes(favoriteRecipesData);
   }, []);
 
-  const onDragEnd = (result) => {
-    if (!result.destination) return;
+  const onEventResize = (data) => {
+    const { start, end } = data;
 
-    const { source, destination } = result;
+    setEvents((prevEvents) =>
+      prevEvents.map((event) =>
+        event.id === data.event.id ? { ...event, start, end } : event
+      )
+    );
+  };
 
-    
-      if (source.droppableId !== destination.droppableId) {
-        const updatedEvents = [...events];
-        const movedEvent = updatedEvents.find((e) => e.id === source.draggableId);
-        movedEvent.start = moment(destination.droppableId).toDate();
-        movedEvent.end = moment(destination.droppableId).add(1, "hour").toDate();
+  const onEventDrop = (data) => {
+    const { start, end, event } = data;
 
-      setEvents(updatedEvents);
+    setEvents((prevEvents) =>
+      prevEvents.map((evt) =>
+        evt.id === event.id ? { ...evt, start, end } : evt
+      )
+    );
+  };
+
+  const handleDragStart = (recipe) => {
+    setDraggedRecipe(recipe);
+  };
+
+  const handleDropFromOutside = ({ start, end }) => {
+    if (draggedRecipe) {
+      const newEvent = {
+        id: draggedRecipe.idMeal,
+        title: draggedRecipe.strMeal,
+        start,
+        end,
+      };
+
+      setEvents((prevEvents) => [...prevEvents, newEvent]);
+      setDraggedRecipe(null);
     }
   };
 
@@ -38,72 +63,45 @@ const MealPlan = () => {
     </span>
   );
 
-  const CustomDayCell = ({ date, children }) => {
-    const droppableId = `calendar-${moment(date).format("YYYY-MM-DD")}`;
-
-    return (
-      <Droppable droppableId={droppableId}>
-        {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps} className="calendar-day">
-            {children}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    );
-  };
-
   return (
     <div className="meal-plan">
-      <DragDropContext onDragEnd={onDragEnd}>
-        <div className="favorites-list">
-          <h2>Favorite Recipes</h2>
-           {favoriteRecipes.map((recipe, index) => (
-            <Droppable droppableId={recipe.idMeal.toString()} key={recipe.idMeal}>
-            {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-               
-                  <Draggable key={recipe.idMeal} draggableId={recipe.idMeal.toString()} index={index}>
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className="favorite-recipe"
-                      >
-                        <img src={recipe.strMealThumb} alt={recipe.strMeal} />
-                        <p>{recipe.strMeal}</p>
-                      </div>
-                    )}
-                  </Draggable>
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+      <div className="favorites-list">
+        <h2>Favorite Recipes</h2>
+        {favoriteRecipes.map((recipe, index) => (
+          <div
+            key={recipe.idMeal}
+            className="favorite-recipe"
+            draggable
+            onDragStart={() => handleDragStart(recipe)}
+          >
+            <img src={recipe.strMealThumb} alt={recipe.strMeal} />
+            <p>{recipe.strMeal}</p>
+          </div>
         ))}
+      </div>
+
+   <div className="calendar">
+        <h2>Meal Plan Calendar</h2>
+        <div className="calendar-container">
+          <DnDCalendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: 500 }}
+            onEventDrop={onEventDrop}
+            onEventResize={onEventResize}
+            resizable
+            components={{
+              event: renderEvent,
+            }}
+            onDropFromOutside={handleDropFromOutside}
+            draggableAccessor={() => true}
+          />
         </div>
-        
-        <div className="calendar">
-          <h2>Meal Plan Calendar</h2>
-         
-              <div className="calendar-container">
-                <Calendar
-                  localizer={localizer}
-                  events={events}
-                  startAccessor="start"
-                  endAccessor="end"
-                  style={{ height: 500 }}
-                  components={{
-                    event: renderEvent,
-                    dateCellWrapper: CustomDayCell,
-                  }}
-                />
-    
-              </div>
-        </div>
-      </DragDropContext>
+      </div>
     </div>
   );
 };
 
-export default MealPlan;
+export default MealPlan;    

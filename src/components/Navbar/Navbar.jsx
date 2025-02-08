@@ -16,7 +16,7 @@ function Navbar({ onOpenPantryModal, onOpenShoppingListModal }) {
   return (
     <nav className="navbar">
       <div className="nav-content">
-        <h1>Fork Plan</h1>
+        <h1>ForkItUp</h1>
       
         <ul>
           <li>
